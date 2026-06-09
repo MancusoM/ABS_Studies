@@ -26,7 +26,7 @@ ax = sns.countplot(
 )
 # adds customizations
 ax.set(
-    title="Innings in which an ABS challenge occurred \n Data as of 5/31:",
+    title="[Mets Catchers]:\n Innings Frequency of ABS Challenge",
     xlabel="Inning",
     ylabel="# of Occurrences",
 )

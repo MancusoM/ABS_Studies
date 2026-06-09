@@ -2,9 +2,6 @@ import pandas as pd
 import matplotlib.pyplot as plt
 import seaborn as sns
 from pathlib import Path
-
-from const import pitch_types, pitch_groups
-
 import os
 import sys
 
@@ -35,11 +32,10 @@ def cleaning_data(catcher_data: pd.DataFrame) -> pd.DataFrame:
         elif i["home_team"] != "NYM":
             i["mets_win_expectancy"] = i["home_win_exp"] * -1
 
-        if i['mets_win_expectancy'] >0:
-            i['Team Projected to Win'] = "Mets"
+        if i["mets_win_expectancy"] > 0:
+            i["Team Projected to Win"] = "Mets"
         else:
-            i['Team Projected to Win'] ='Opponent'
-
+            i["Team Projected to Win"] = "Opponent"
 
         dictionary = {
             "Mets_win_expectancy": i["mets_win_expectancy"],
@@ -60,7 +56,10 @@ def cleaning_data(catcher_data: pd.DataFrame) -> pd.DataFrame:
 
 dataframe = cleaning_data(catcher_data)
 
-dataframe['Mets_win_expectancy'] = dataframe['Mets_win_expectancy'].apply(lambda x: x*-1 if x<0 else x)
+dataframe["Mets_win_expectancy"] = dataframe["Mets_win_expectancy"].apply(
+    lambda x: x * -1 if x < 0 else x
+)
+print(dataframe.groupby("Player")["Mets_win_expectancy"].mean())
 
 custom_palette = sns.color_palette()
 # generates plot
@@ -70,7 +69,7 @@ ax = sns.swarmplot(
     y="Mets_win_expectancy",
     hue="Team Projected to Win",
     alpha=0.8,
-    palette='deep'
+    palette="deep",
 )
 
 # Customizations
@@ -78,12 +77,12 @@ plt.ylim(0, 100)
 plt.axhline(50, color="red", linestyle="--", linewidth=1.5)
 plt.axhline(40, color="green", linestyle="--", linewidth=1.5)
 plt.axhline(60, color="green", linestyle="--", linewidth=1.5)
-ax.tick_params(axis='y', labelrotation=45)
+ax.tick_params(axis="y", labelrotation=45)
 
 ax.set(
     title="[Mets Catchers]: \n Win Expectancy at Time of Mets Challenge \n ",
     xlabel="Catcher",
-    ylabel="Mets' Chance to Win Game\nAt Time of Challenge",
+    ylabel="Mets' Win Expectancy \n At Time of Challenge",
 )
 ax.set_yticklabels(ax.get_yticklabels(), rotation=45)
 # display plot

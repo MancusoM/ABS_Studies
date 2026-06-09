@@ -80,13 +80,14 @@ labels = [
     textwrap.fill(str(label.get_text()), width=10) for label in ax.get_yticklabels()
 ]
 ax.set_yticklabels(labels)
-print(labels)
+
+
 plt.axvline(0.000, color="black", linestyle="--", linewidth=1.5)
 
 ax.set(
-    title="[Mets Batters]: Win Percentage Added/Lost",
+    title="[Mets Batters]: Win Percentage Added/Lost via ABS",
     ylabel="Batter",
-    xlabel="Win Percentage Points Added/Lost",
+    xlabel="Win Percentage Points Added/Lost via ABS",
 )
 
 plt.show()
